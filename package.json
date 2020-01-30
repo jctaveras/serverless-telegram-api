@@ -1,0 +1,27 @@
+{
+  "name": "serverless-telegram",
+  "version": "1.0.0",
+  "description": "A Serverles Telegram API for a Bot Service",
+  "main": "handler.js",
+  "scripts": {
+    "test": "serverless-bundle test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jctaveras/serverless-telegram-api.git"
+  },
+  "author": "Jean Carlos Taveras",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jctaveras/serverless-telegram-api/issues"
+  },
+  "homepage": "https://github.com/jctaveras/serverless-telegram-api#readme",
+  "devDependencies": {
+    "serverless-bundle": "^1.2.5",
+    "serverless-dotenv-plugin": "^2.1.1",
+    "serverless-offline": "^5.12.1"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  }
+}
