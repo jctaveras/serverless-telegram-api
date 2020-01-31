@@ -1,8 +1,10 @@
-import fetch from 'node-fetch';
+import sendMessage from './lib/sendMessage';
+import logResponse from './lib/logger';
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
+const botSendMessage = sendMessage(BOT_TOKEN);
 
-export const hello = async event => {
+export const commands = async (event) => {
   const messageInfo = JSON.parse(event.body);
   const {
     message: {
@@ -15,32 +17,17 @@ export const hello = async event => {
     }
   } = messageInfo;
   const [command] = text.match(/^\/\w+/) || [];
+  let response;
 
   if (type === 'bot_command') {
     switch (command) {
       case '/greetings':
-        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            chat_id,
-            text: `Hello ${userName}👋`
-          })
-        });
+        response = await botSendMessage(chat_id, `Hello ${userName}👋`);
+        logResponse(response);
         break;
       default:
-        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            chat_id,
-            text: 'Command Not Found ✖'
-          })
-        });
+        response = await sendMessage(chat_id, 'Command Not Found ✖');
+        logResponse(response);
         break;
     }
   }
